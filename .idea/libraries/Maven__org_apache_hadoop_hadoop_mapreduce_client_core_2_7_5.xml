@@ -8,6 +8,7 @@
     </JAVADOC>
     <SOURCES>
       <root url="jar://$MAVEN_REPOSITORY$/org/apache/hadoop/hadoop-mapreduce-client-core/2.7.5/hadoop-mapreduce-client-core-2.7.5-sources.jar!/" />
+      <root url="file://$MAVEN_REPOSITORY$/org/apache/hadoop/hadoop-mapreduce-client-core/2.7.1" />
     </SOURCES>
   </library>
 </component>

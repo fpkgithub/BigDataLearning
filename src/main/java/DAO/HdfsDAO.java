@@ -24,7 +24,7 @@ public class HdfsDAO
         this(HDFS, conf);
     }
 
-    private HdfsDAO(String hdfs, Configuration conf)
+    public HdfsDAO(String hdfs, Configuration conf)
     {
         this.hdfsPath = hdfs;
         this.conf = conf;
