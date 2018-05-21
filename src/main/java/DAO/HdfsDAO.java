@@ -42,7 +42,8 @@ public class HdfsDAO
         HdfsDAO hdfs = new HdfsDAO(conf);
         //hdfs.mkdirs("/tmp/new/two");
         hdfs.ls("/");
-        hdfs.download("/boy/recommend/step/step1/output","src/main/data/output/recommend/step1");
+        hdfs.copyFile("src/main/data/input/recommend/step1/output/par*","/boy/love");
+        //hdfs.download("/boy/recommend/step/step1/output","src/main/data/output/recommend/step1");
         //        hdfs.mkdirs("/boy/love");
         //
         //        hdfs.ls("/");

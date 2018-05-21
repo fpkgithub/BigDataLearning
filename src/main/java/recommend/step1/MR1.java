@@ -22,7 +22,7 @@ public class MR1
     //当前项目绝对路径
     static String basePath = System.getProperty("user.dir");
     //输入文件的路径
-    static String inputPath = "src/main/data/input/recommend/step1/ActionList";
+    static String inputPath = "src/main/data/input/recommend/step1/input/ActionList";
     //文件名
     static String fileName = "ActionList";
 
@@ -54,7 +54,7 @@ public class MR1
         //输入文件设置
         //1: 创建上传的路径
         HdfsDAO hdfsDAO = new HdfsDAO(HDFS, conf);
-        String hdfsPath = "/boy/recommend/step/step1/";
+        String hdfsPath = "/boy/recommend/step1/";
         hdfsDAO.mkdirs(hdfsPath);
 
         //2：上传文件到hdfs
@@ -72,7 +72,7 @@ public class MR1
         if (flag == true)
         {
             System.out.println("It's ok !");
-            hdfsDAO.download(outputPath, "src/main/data/output/recommend/step1");
+            hdfsDAO.download(outputPath, "src/main/data/input/recommend/step1");
         }
         else
         {
