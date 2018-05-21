@@ -13,11 +13,13 @@ public class Mapper1 extends Mapper<LongWritable, Text, Text, Text>
     private Text outValue = new Text();
 
 
-    /*
+    /*用户 物品 行为权重
       A,1,1
       C,3,5
       B,2,3
       B,5,3
+
+      输出：物品,用户_分数
      */
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException
@@ -30,7 +32,6 @@ public class Mapper1 extends Mapper<LongWritable, Text, Text, Text>
         outKey.set(itemID);
         outValue.set(userID + "_" + score);
         context.write(outKey, outValue);
-
 
     }
 }

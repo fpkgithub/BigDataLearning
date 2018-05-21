@@ -11,7 +11,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 
 /**
- * 根据用户行为构建评分矩阵
+ * 根据用户行为列表计算用户、物品的评分矩阵
  */
 
 public class MR1
@@ -72,6 +72,7 @@ public class MR1
         if (flag == true)
         {
             System.out.println("It's ok !");
+            hdfsDAO.download(outputPath, "src/main/data/output/recommend/step1");
         }
         else
         {
