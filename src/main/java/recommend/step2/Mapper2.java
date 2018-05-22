@@ -18,7 +18,7 @@ public class Mapper2 extends Mapper<LongWritable, Text, Text, Text>
     private Text outputValue = new Text();
 
     private List<String> cacheList = new ArrayList<String>();
-    private DecimalFormat df = new DecimalFormat("0:00");
+    private DecimalFormat df = new DecimalFormat("0.00");
 
     /**
      * 缓存步骤1的输出
@@ -114,7 +114,7 @@ public class Mapper2 extends Mapper<LongWritable, Text, Text, Text>
                 }
             }
 
-            System.out.println(i++ + " : " + numerator + " " + denominator1 + " " + denominator2);
+            //System.out.println(i++ + " : " + numerator + " " + denominator1 + " " + denominator2);
             double cos = numerator / (denominator1 * denominator2);
 
             if (cos == 0)

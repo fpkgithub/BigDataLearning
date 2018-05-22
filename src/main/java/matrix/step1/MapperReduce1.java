@@ -10,6 +10,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 /**
  * MapReduce 计算矩阵乘法
+ * 矩阵转置
  */
 
 public class MapperReduce1
