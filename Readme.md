@@ -1,6 +1,6 @@
 ## Hadoop进阶
 
-
+地址：[Hadoop进阶](https://www.imooc.com/learn/890)
 
 # 1 第一章 概述
 
@@ -277,7 +277,7 @@ Yarn设计减少了jobtracker对系统资源的消耗，也减少了hadoop1.0单
 
 ![image.png](https://upload-images.jianshu.io/upload_images/5959612-9feb3ea1a70ee86f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-![1526869840549](C:\Users\ADMINI~1\AppData\Local\Temp\1526869840549.png)
+[图片上传失败...(image-db3bef-1526978905470)]
 
 2、根据用户、物品的评分矩阵计算**物品与物品的相似度矩阵**
 
@@ -287,33 +287,33 @@ Yarn设计减少了jobtracker对系统资源的消耗，也减少了hadoop1.0单
 
 评分矩阵两两相乘、然后构建对称矩阵
 
-![物品与物品的相似度矩阵](C:\Users\ADMINI~1\AppData\Local\Temp\1526866872349.png)
+[图片上传失败...(image-6ceb08-1526978905471)]
 
 3、相似度矩阵*评分矩阵 = **推荐列表**
 
-![相似度矩阵*评分矩阵](C:\Users\ADMINI~1\AppData\Local\Temp\1526867062157.png) 	
+[图片上传失败...(image-3ceb2-1526978905471)] 	
 
 
 
-![推荐列表](C:\Users\ADMINI~1\AppData\Local\Temp\1526867082525.png)
+[图片上传失败...(image-8686f4-1526978905471)]
 
 将推荐矩阵和评分矩阵做一个比较，发现在评分矩阵中，用户已经对一些商品产生过行为，对这些已经产生多的行为， 所以没有必要在为这些用户推荐这些商品，那么我们就可以将之前推荐过的商品置零。
 
-![1526868082526](C:\Users\ADMINI~1\AppData\Local\Temp\1526868082526.png)
+[图片上传失败...(image-455ebe-1526978905471)]
 
 最终的推荐结果，一个用户可能有很多的推荐物品，我们这里去Top1作为最终的推荐结果，取出用户最感兴趣的物品，
 
-![最终的推荐结果](C:\Users\ADMINI~1\AppData\Local\Temp\1526868370614.png)
+[图片上传失败...(image-df6cd3-1526978905471)]
 
 具体实现步骤：
 
-![具体实现步骤](C:\Users\ADMINI~1\AppData\Local\Temp\1526868417791.png)
+[图片上传失败...(image-94fe70-1526978905471)]
 
 
 
 ## 4-3 基于物品的推荐算法（代码）
 
-**代码实现的步骤**![代码实现的步骤](C:\Users\ADMINI~1\AppData\Local\Temp\1526871263545.png)
+**代码实现的步骤**[图片上传失败...(image-bb7222-1526978905471)]
 
 **Step1：**
 
@@ -333,7 +333,7 @@ Yarn设计减少了jobtracker对系统资源的消耗，也减少了hadoop1.0单
 
 输出：用户ID(行) --- 物品ID(列)  --- 相似度
 
-![1526889415632](C:\Users\ADMINI~1\AppData\Local\Temp\1526889415632.png)
+[图片上传失败...(image-2cf23-1526978905471)]
 
 
 
@@ -398,40 +398,37 @@ Yarn设计减少了jobtracker对系统资源的消耗，也减少了hadoop1.0单
 商品：1、2、3、4、5、6
 
 行为：点击 1.0分、搜索 3.0分、收藏 5.0分、付款 10.0分
+![用户行为列表](https://upload-images.jianshu.io/upload_images/5959612-6df687bcd37f6911.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-![用户行为列表](https://upload-images.jianshu.io/upload_images/5959612-f2b0ca3892811850.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 算法步骤：
 
 1.  根据用户行为为列表计算物品、用户的**评分矩阵**
 
    **行号是用户ID、列号是物品ID**
+![评分矩阵](https://upload-images.jianshu.io/upload_images/5959612-a223d68db56422ef.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-   ![评分矩阵](C:\Users\ADMINI~1\AppData\Local\Temp\1526971315567.png)
 
 2. 根据评分矩阵计算用户与用户的**相似度矩阵**
 
    将所有的用户两两计算相似度之后，得到相似度矩阵
+![两两计算相似度](https://upload-images.jianshu.io/upload_images/5959612-dd54e5bbb9a088a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![用户与用户的相似度矩阵](https://upload-images.jianshu.io/upload_images/5959612-9c4bdd43e754ae3c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-   ![两两计算相似度](C:\Users\ADMINI~1\AppData\Local\Temp\1526971454485.png)
-
-
-
-![用户与用户的相似度矩阵](C:\Users\ADMINI~1\AppData\Local\Temp\1526971568320.png)
 
 1. 相似度矩阵 * 评分矩阵 = 推荐列表
+![相似度矩阵 * 评分矩阵](https://upload-images.jianshu.io/upload_images/5959612-44b83509d0ff1b93.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-   ![相似度矩阵 * 评分矩阵](C:\Users\ADMINI~1\AppData\Local\Temp\1526971661357.png)
 
 得到推荐列表，在对照评分矩阵，将相应位置的元素置零
+![元素置零](https://upload-images.jianshu.io/upload_images/5959612-8c69a2fa35e3254a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-![1526971996918](C:\Users\ADMINI~1\AppData\Local\Temp\1526971996918.png)
 
 ## 4-7 基于用户的推荐算法（代码）
 
 基于用户的推荐算法MR的步骤：**UserCF**
+![基于用户的推荐算法](https://upload-images.jianshu.io/upload_images/5959612-a73b8f1da73296ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-![基于用户的推荐算法](C:\Users\ADMINI~1\AppData\Local\Temp\1526972055966.png)
 
 与给予物品的推荐算法类似
 
@@ -442,9 +439,7 @@ Yarn设计减少了jobtracker对系统资源的消耗，也减少了hadoop1.0单
 算法思想：给用户推荐和他们之前喜欢的物品**在内容上相似**的其他物品
 
 **物品特征建模**
-
-![1526974342815](C:\Users\ADMINI~1\AppData\Local\Temp\1526974342815.png)
-
+![物品特征建模](https://upload-images.jianshu.io/upload_images/5959612-396117fb5bebbb81.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
 算法步骤：
@@ -452,42 +447,39 @@ Yarn设计减少了jobtracker对系统资源的消耗，也减少了hadoop1.0单
 1 构建Item Profile矩阵
 
 0 1矩阵， 行号是物品ID，列号是标签
+![构建Item Profile矩阵](https://upload-images.jianshu.io/upload_images/5959612-b07f524a43897f19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-![构建Item Profile矩阵](C:\Users\ADMINI~1\AppData\Local\Temp\1526974378855.png)
 
 2 构建Item User评分矩阵
 
  行号是用户ID，列号是物品ID
+![评分矩阵](https://upload-images.jianshu.io/upload_images/5959612-fe06492dcccbd9c3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-![评分矩阵](C:\Users\ADMINI~1\AppData\Local\Temp\1526974523093.png)
+
 
 3 Item User * Item Profile = User Profile
-
-![Item User * Item Profile](C:\Users\ADMINI~1\AppData\Local\Temp\1526974591203.png)
+![Item User * Item Profile](https://upload-images.jianshu.io/upload_images/5959612-72db29a040d2742f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 User Profile：用户对所有标签感兴趣的程度
+![User Profile](https://upload-images.jianshu.io/upload_images/5959612-33b215ab99bd6cd8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-![ User Profile](C:\Users\ADMINI~1\AppData\Local\Temp\1526974782086.png)
 
 4 对Item Profile 和 User Profile求余弦相似度
 
-![余弦相似度](C:\Users\ADMINI~1\AppData\Local\Temp\1526974881698.png)
-
-
+![余弦相似度](https://upload-images.jianshu.io/upload_images/5959612-5551e4bcd6ba595f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ## 4-9 基于内容的推荐算法（代码）
 
 MR步骤：UserCF
 
+![MR步骤](https://upload-images.jianshu.io/upload_images/5959612-92a9adc70600375b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-
-![1526974915732](C:\Users\ADMINI~1\AppData\Local\Temp\1526974915732.png)
 
 
 
 # 5 第五章 课程总结
+![课程总结](https://upload-images.jianshu.io/upload_images/5959612-eba4c520a3165681.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-![课程总结](C:\Users\ADMINI~1\AppData\Local\Temp\1526977700724.png)
 
 
 
