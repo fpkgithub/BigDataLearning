@@ -1,4 +1,4 @@
-package recommend.step5;
+package UserCF.step5;
 
 import DAO.HdfsDAO;
 import org.apache.hadoop.conf.Configuration;
@@ -24,16 +24,17 @@ public class MR5
     private static final String HDFS = "hdfs://master:9000";
 
     //输入文件的路径
-    private static String inPath = "src/main/data/input/recommend/step4/output/";
+    private static String inPath = "src/main/data/input/UserCF/step4/output/";
 
     //输出文件的路径
-    private static String outPath = "src/main/data/input/recommend/step5/";
+    private static String outPath = "src/main/data/input/UserCF/step5/";
 
     //输入文件名
     private static String fileName = "part-r-00000";
 
     //全局缓存文件路径
-    private static String cachePath = "/boy/recommend/step1/output/part-r-00000";
+    private static String cachePath = "/boy/UserCF/step1/output/part-r-00000";
+
 
     public int run()
     {
@@ -60,7 +61,7 @@ public class MR5
 
 
             HdfsDAO dao = new HdfsDAO(HDFS, conf);
-            String hdfsFilePath = "/boy/recommend/step5/";
+            String hdfsFilePath = "/boy/UserCF/step5/";
             dao.mkdirs(hdfsFilePath);
             dao.copyFile(inPath + fileName, hdfsFilePath);
 

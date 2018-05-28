@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/BigDataLearning.iml" filepath="$PROJECT_DIR$/BigDataLearning.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../ScalaLearing/ScalaLearing.iml" filepath="$PROJECT_DIR$/../ScalaLearing/ScalaLearing.iml" />
     </modules>
   </component>
 </project>

@@ -1,4 +1,4 @@
-package recommend.step5;
+package ContentCF.step1;
 
 import DAO.HdfsDAO;
 import org.apache.hadoop.conf.Configuration;
@@ -9,31 +9,28 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
+
 
 /**
- * 根据评分矩阵，将步骤4的输出中，用户已经有用过行为的商品评分置0
- * 输入：步骤4的输出
- * 缓存：步骤1的输出
- * 输出：用户ID(行)  ---  物品ID(列)  ---  分值  （最终的推荐列表）
+ * MapReduce 计算矩阵乘法
+ * 将评分矩阵转置
+ * 输入：步骤1的输出
+ * 输出：用户ID(行) --- 物品ID(列) ---分值
  */
-public class MR5
+
+public class MR1
 {
     //hdfs地址
     private static final String HDFS = "hdfs://master:9000";
 
     //输入文件的路径
-    private static String inPath = "src/main/data/input/recommend/step4/output/";
+    private static String inPath = "src/main/data/input/ContentCF/step1/";
 
     //输出文件的路径
-    private static String outPath = "src/main/data/input/recommend/step5/";
+    private static String outPath = "src/main/data/input/ContentCF/step1/";
 
     //输入文件名
-    private static String fileName = "part-r-00000";
-
-    //全局缓存文件路径
-    private static String cachePath = "/boy/recommend/step1/output/part-r-00000";
+    private static String fileName = "ItemProfile.txt";
 
     public int run()
     {
@@ -44,15 +41,10 @@ public class MR5
             conf.set("mapreduce.app-submission.cross-platform", "true");
             conf.set("mapred.jar", "target/WordC-1.0-SNAPSHOT-jar-with-dependencies.jar");
 
-            Job job = Job.getInstance(conf, "step5");
-
-            //缓存：步骤3的输出
-            URI uri = new URI(cachePath + "#itemUserScore3");
-            job.addCacheArchive(uri);
-
-            job.setJarByClass(MR5.class);
-            job.setMapperClass(Mapper5.class);
-            job.setReducerClass(Reduce5.class);
+            Job job = Job.getInstance(conf, "step1");
+            job.setJarByClass(MR1.class);
+            job.setMapperClass(Mapper1.class);
+            job.setReducerClass(Reduce1.class);
             job.setMapOutputKeyClass(Text.class);
             job.setMapOutputValueClass(Text.class);
             job.setOutputKeyClass(Text.class);
@@ -60,7 +52,7 @@ public class MR5
 
 
             HdfsDAO dao = new HdfsDAO(HDFS, conf);
-            String hdfsFilePath = "/boy/recommend/step5/";
+            String hdfsFilePath = "/boy/ContentCF/step1/";
             dao.mkdirs(hdfsFilePath);
             dao.copyFile(inPath + fileName, hdfsFilePath);
 
@@ -87,9 +79,6 @@ public class MR5
         } catch (ClassNotFoundException e)
         {
             e.printStackTrace();
-        } catch (URISyntaxException e)
-        {
-            e.printStackTrace();
         }
 
         return -1;
@@ -98,7 +87,7 @@ public class MR5
 
     public static void main(String[] args)
     {
-        int result = new MR5().run();
+        int result = new MR1().run();
         if (result == 1)
             System.out.println("ok...");
         else if (result == -1)

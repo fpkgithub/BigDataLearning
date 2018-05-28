@@ -1,4 +1,5 @@
-package recommend.step5;
+package UserCF.step1;
+
 
 import DAO.HdfsDAO;
 import org.apache.hadoop.conf.Configuration;
@@ -9,65 +10,70 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
+
 
 /**
- * 根据评分矩阵，将步骤4的输出中，用户已经有用过行为的商品评分置0
- * 输入：步骤4的输出
- * 缓存：步骤1的输出
- * 输出：用户ID(行)  ---  物品ID(列)  ---  分值  （最终的推荐列表）
+ * 根据用户行为列表计算用户、物品的评分矩阵
  */
-public class MR5
+
+public class MR1
 {
+
     //hdfs地址
     private static final String HDFS = "hdfs://master:9000";
 
     //输入文件的路径
-    private static String inPath = "src/main/data/input/recommend/step4/output/";
+    private static String inPath = "src/main/data/input/UserCF/step1/";
 
     //输出文件的路径
-    private static String outPath = "src/main/data/input/recommend/step5/";
+    private static String outPath = "src/main/data/input/UserCF/step1/";
 
     //输入文件名
-    private static String fileName = "part-r-00000";
-
-    //全局缓存文件路径
-    private static String cachePath = "/boy/recommend/step1/output/part-r-00000";
+    static String fileName = "ActionList.txt";
 
     public int run()
     {
-
         try
         {
+            System.setProperty("hadoop.home.dir", "D:\\Hadoop\\hadoop-2.7.5");
+
             Configuration conf = new Configuration();
+            conf.set("fs.default.name", HDFS);
             conf.set("mapreduce.app-submission.cross-platform", "true");
-            conf.set("mapred.jar", "target/WordC-1.0-SNAPSHOT-jar-with-dependencies.jar");
+            conf.set("mapreduce.framework.name", "yarn");
+            conf.set("mapred.jar", "D:\\IDE\\Idea\\BigDataLearning\\target\\WordC-1.0-SNAPSHOT-jar-with-dependencies.jar");
 
-            Job job = Job.getInstance(conf, "step5");
+            Job job = Job.getInstance(conf, "step1");
 
-            //缓存：步骤3的输出
-            URI uri = new URI(cachePath + "#itemUserScore3");
-            job.addCacheArchive(uri);
+            job.setJarByClass(MR1.class);
 
-            job.setJarByClass(MR5.class);
-            job.setMapperClass(Mapper5.class);
-            job.setReducerClass(Reduce5.class);
+            job.setMapperClass(Mapper1.class);
+            job.setReducerClass(Reduce1.class);
+
+
             job.setMapOutputKeyClass(Text.class);
             job.setMapOutputValueClass(Text.class);
+
             job.setOutputKeyClass(Text.class);
             job.setOutputValueClass(Text.class);
 
-
+            //输入文件设置
+            //1: 创建上传的路径
             HdfsDAO dao = new HdfsDAO(HDFS, conf);
-            String hdfsFilePath = "/boy/recommend/step5/";
+            String hdfsFilePath = "/boy/UserCF/step1/";
             dao.mkdirs(hdfsFilePath);
+
+            //2：上传文件到hdfs
             dao.copyFile(inPath + fileName, hdfsFilePath);
 
+            //3: 指定本次作业要处理的原始文件所在路径
             FileInputFormat.addInputPath(job, new Path(hdfsFilePath + fileName));
+
+            //输出路径
             FileOutputFormat.setOutputPath(job, new Path(hdfsFilePath + "output"));
 
-            boolean flag = job.waitForCompletion(true) == true;
+            boolean flag = job.waitForCompletion(true);
+
             if (flag == true)
             {
                 dao.download(hdfsFilePath + "output", outPath);
@@ -77,7 +83,6 @@ public class MR5
             {
                 return -1;
             }
-
         } catch (IOException e)
         {
             e.printStackTrace();
@@ -85,9 +90,6 @@ public class MR5
         {
             e.printStackTrace();
         } catch (ClassNotFoundException e)
-        {
-            e.printStackTrace();
-        } catch (URISyntaxException e)
         {
             e.printStackTrace();
         }
@@ -98,11 +100,10 @@ public class MR5
 
     public static void main(String[] args)
     {
-        int result = new MR5().run();
+        int result = new MR1().run();
         if (result == 1)
             System.out.println("ok...");
         else if (result == -1)
             System.out.println("wrong...");
     }
-
 }
